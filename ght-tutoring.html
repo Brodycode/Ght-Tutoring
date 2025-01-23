@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GHT Tutoring</title>
+    <!-- External CSS Dependencies -->
+    <!-- Bootstrap 5 CSS for responsive design and components -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Google Fonts - Bodoni Moda for typography -->
+    <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:wght@400;700&display=swap" rel="stylesheet">
+    
+    <!-- Custom CSS Styles -->
+    <style>
+        /* Custom CSS Variables for consistent theming */
+        :root {
+            --emerald: #004D40;    /* Primary color for main elements */
+            --cream: #FAF7F2;      /* Background color */
+            --gold: #D4B88C;       /* Accent color for CTAs */
+            --text-dark: #1A1A1A;  /* Main text color */
+        }
+
+        /* Global Reset and Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Bodoni Moda", serif;
+        }
+
+        /* Base body styles */
+        body {
+            background-color: var(--cream);
+            color: var(--text-dark);
+            line-height: 1.6;
+        }
+
+        /* Navigation Styles */
+        .navbar {
+            background: transparent;
+            padding: 1.5rem 2rem;
+            position: fixed;
+            width: 100%;
+            z-index: 1000;
+            transition: background-color 0.3s ease;
+        }
+
+        /* Navbar background change on scroll */
+        .navbar.scrolled {
+            background-color: var(--emerald);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        /* Logo styling */
+        .logo {
+            font-size: 2rem;
+            color: var(--cream);
+            font-weight: bold;
+            text-decoration: none;
+        }
+
+        /* Navigation links container */
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        /* Individual navigation link styles */
+        .nav-links a {
+            color: var(--cream);
+            text-decoration: none;
+            font-size: 1rem;
+            text-transform: lowercase;
+            transition: color 0.3s ease;
+        }
+
+        /* Navigation link hover effect */
+        .nav-links a:hover {
+            color: var(--gold);
+        }
+
+        /* Contact button in navigation */
+        .contact-button {
+            background: var(--cream);
+            color: var(--emerald) !important;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        /* Contact button hover effect */
+        .contact-button:hover {
+            background: var(--gold);
+            color: var(--text-dark) !important;
+        }
+
+        /* Hero Section Styles */
+        .hero {
+            background-color: var(--emerald);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 8rem 4rem;
+        }
+
+        /* Hero content container */
+        .hero-content {
+            color: var(--cream);
+            max-width: 600px;
+        }
+
+        /* Hero heading */
+        .hero h1 {
+            font-size: 4rem;
+            line-height: 1.2;
+            margin-bottom: 1.5rem;
+            font-weight: normal;
+        }
+
+        /* Call-to-action button styles */
+        .cta-button {
+            background: var(--gold);
+            color: var(--text-dark);
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 50px;
+            font-size: 1rem;
+            cursor: pointer;
+            margin-top: 2rem;
+            transition: all 0.3s ease;
+        }
+
+        /* CTA button hover animation */
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+
+        /* Section title styling */
+        .section-title {
+            font-size: 3rem;
+            color: var(--emerald);
+            text-align: center;
+            margin-bottom: 3rem;
+            font-weight: normal;
+        }
+
+        /* Service Card Styles */
+        .service-card {
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+
+        /* Service card hover effect */
+        .service-card:hover {
+            transform: translateY(-5px);
+        }
+
+        /* Service card image container */
+        .service-image img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+        }
+
+        /* Service card content area */
+        .service-content {
+            padding: 2rem;
+        }
+
+        /* Service card headings */
+        .service-content h3 {
+            font-size: 2rem;
+            color: var(--emerald);
+            margin-bottom: 1rem;
+            font-weight: normal;
+        }
+
+        /* Contact Section Styles */
+        .contact {
+            padding: 4rem;
+            background: var(--emerald);
+            color: var(--cream);
+        }
+
+        /* Form control styling */
+        .form-control {
+            background: rgba(255,255,255,0.1) !important;
+            border: none !important;
+            color: var(--cream) !important;
+            padding: 1rem !important;
+            margin-bottom: 1rem;
+        }
+
+        /* Form placeholder text */
+        .form-control::placeholder {
+            color: rgba(255,255,255,0.7);
+        }
+
+        /* Form select styling */
+        .form-select {
+            background: rgba(255,255,255,0.1) !important;
+            border: none !important;
+            color: var(--cream) !important;
+            padding: 1rem !important;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            /* Mobile hero section adjustments */
+            .hero {
+                padding: 6rem 2rem;
+                text-align: center;
+            }
+
+            /* Mobile hero heading size */
+            .hero h1 {
+                font-size: 3rem;
+            }
+
+            /* Mobile navbar background */
+            .navbar {
+                background: var(--emerald);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-expand-lg">
+        <div class="container">
+            <!-- Brand Logo -->
+            <a href="#" class="logo navbar-brand">GHT Tutoring</a>
+            <!-- Mobile Toggle Button -->
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <!-- Navigation Links -->
+            <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+                <div class="nav-links navbar-nav">
+                    <a href="#" class="nav-link">home</a>
+                    <a href="#services" class="nav-link">subjects</a>
+                    <a href="#tutors" class="nav-link">tutors</a>
+                    <a href="#pricing" class="nav-link">pricing</a>
+                    <a href="#contact" class="contact-button nav-link">contact us</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    !-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-6 hero-content">
+                    <h1 class="display-4">Empowering Education</h1>
+                    <p class="lead">Expert tutors. Personalized learning. Success guaranteed.</p>
+                    <a href="#contact" class="btn cta-button">Get Started &rarr;</a>
+                </div>
+                <img src="package.png" alt="Physics" class="img-fluid">
+            </div>
+        </div>
+    </section>
+
+    <!-- Services/Subjects Section -->
+    <section id="services" class="py-5">
+        <div class="container">
+            <h2 class="section-title">Subjects Offered</h2>
+            <div class="row g-4">
+                <!-- Physics Card -->
+                <div class="col-md-6">
+                    <div class="service-card">
+                        <div class="service-image">
+                            <img src="Wallpaper handphone with Albert Einstein and physics symbol.jpg" alt="Physics" class="img-fluid">
+                        </div>
+                        <div class="service-content">
+                            <h3>Physics</h3>
+                            <p>Get more information</p>
+                        </div>
+                    </div>
+                </div>
+                    <!-- Geography -->
+                    <div class="col-md-6">
+                        <div class="service-card">
+                            <div class="service-image">
+                                <img src="Countries of the World Divided into Eight Regions.jpg" alt="Physics" class="img-fluid">
+                            </div>
+                            <div class="service-content">
+                                <h3>Geography</h3>
+                                <p>Get Material, more informatiom and practical work</p>
+                            </div>
+                        </div>
+                    </div>
+                
+                    <!-- Chemistry -->
+                    <div class="col-md-6">
+                        <div class="service-card">
+                            <div class="service-image">
+                                <img src="Chemistry Lab Fabric.jpg" alt="Physics" class="img-fluid">
+                            </div>
+                            <div class="service-content">
+                                <h3>Chemistry</h3>
+                                <p>Get Material, more informatiom and practical work</p>
+                            </div>
+                        </div>
+                    </div>
+                
+                <!-- Mathematics Card -->
+                <div class="col-md-6">
+                    <div class="service-card">
+                        <div class="service-image">
+                            <img src="Fondo de matemática en pizarra _ Vector Premium.jpg" alt="Mathematics" class="img-fluid">
+                        </div>
+                        <div class="service-content">
+                            <h3>Mathematics</h3>
+                            <p>Get more information</p>
+                        </div>
+                    </div>
+                </div>
+                
+                    <!-- Life Science -->
+                    <div class="col-md-6">
+                        <div class="service-card">
+                            <div class="service-image">
+                                <img src="Free Vector _ Science Banner with Doodle Icons.jpg" alt="Physics" class="img-fluid">
+                            </div>
+                            <div class="service-content">
+                                <h3>Life Science</h3>
+                                <p>Get Material, more informatiom and practical work</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Accounting-->
+                    <div class="col-md-6">
+                        <div class="service-card">
+                            <div class="service-image">
+                                <img src="Financial Term Of The Week_ Accrual Accounting….jpg" alt="Physics" class="img-fluid">
+                            </div>
+                            <div class="service-content">
+                                <h3>Accounting</h3>
+                                <p>Get Material, more informatiom and practical work</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Economics -->
+                    <div class="col-md-6">
+                        <div class="service-card">
+                            <div class="service-image">
+                                <img src="Why Not Just Print More Money_.jpg" alt="Physics" class="img-fluid">
+                            </div>
+                            <div class="service-content">
+                                <h3>Econimics</h3>
+                                <p>Get Material, more informatiom and practical work</p>
+                            </div>
+                        </div>
+                    </div>
+            
+            </div>
+        </div>
+    </section>
+
+    <!-- Tutors Section -->
+    <section id="tutors" class="py-5">
+        <div class="container">
+            <h2 class="section-title">Meet Our Tutors</h2>
+            <div class="row g-4">
+                <!-- Icon-->
+                <div class="col-md-6">
+                    <div class="service-card">
+                        <div class="service-image">
+                            <img src="IMG_3515.jpeg" alt="Physics" class="img-fluid">
+                        </div>
+                        <div class="service-content">
+                            <h3>Iva Ngwalangwala</h3>
+                            <p>Accounting Tutor</p>
+                            <p> Honours Accounting Student</p>
+                            <p>Rhodes University</p>
+                            <p>Grahamstown</p>
+
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Liyema -->
+                <div class="col-md-6">
+                    <div class="service-card">
+                        <div class="service-image">
+                            <img src="c6ff8076-2e5b-483c-8498-ae4941d0634f.jpeg" alt="Physics" class="img-fluid">
+                        </div>
+                        <div class="service-content">
+                            <h3>Liyema Kema</h3>
+                            <p> IT, Computer Science Tutor</p>
+                            <p> 3rd Year Computer Science Student</p>
+                            <p>Rhodes University</p>
+                            <p>Grahamstown</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Brody -->
+                <div class="col-md-6">
+                    <div class="service-card">
+                        <div class="service-image">
+                            <img src="IMG_3517 (1).jpeg" alt="Physics" class="img-fluid">
+                        </div>
+                        <div class="service-content">
+                            <h3>Wisani Ngomani</h3>
+                            <p> Geography & Life Science Tutor</p>
+                            <p> Computer Science Student</p>
+                            <p>Rhodes University</p>
+                            <p>Grahamstown</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Mihali  -->
+                <div class="col-md-6">
+                    <div class="service-card">
+                        <div class="service-image">
+                            <img src="IMG_3516 (1).jpeg" alt="Physics" class="img-fluid">
+                        </div>
+                        <div class="service-content">
+                            <h3>Mihlali Xhala</h3>
+                            <p> Mathametics & Phyiscal Science  Tutor</p>
+                            <p> Mathametics and Physcs Student</p>
+                            <p>Rhodes University</p>
+                            <p>Grahamstown</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Soms -->
+                <div class="col-md-6">
+                    <div class="service-card">
+                        <div class="service-image">
+                            <img src="Why Not Just Print More Money_.jpg" alt="Physics" class="img-fluid">
+                        </div>
+                        <div class="service-content">
+                            <h3>Somila Ndokweni </h3>
+                            <p> Econonics Tutor</p>
+                            <p> Bcom Economics Student</p>
+                            <p>Rhodes University</p>
+                            <p>Grahamstown</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section id="pricing" class="py-5">
+        <div class="container">
+            <h2 class="section-title">Pricing</h2>
+            <div class="row g-4">
+                <!-- Hourly Session Price Card -->
+                <div class="col-md-4">
+                    <div class="service-card text-center">
+                        <div class="service-content">
+                            <h3>Hourly Session</h3>
+                            <p class="display-6 fw-bold">R200</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Weekly Session Price Card -->
+                <div class="col-md-4">
+                    <div class="service-card text-center">
+                        <div class="service-content">
+                            <h3>Weekly (4 Days)</h3>
+                            <p class="display-6 fw-bold">R600</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Monthly Session Price Card -->
+                <div class="col-md-4">
+                    <div class="service-card text-center">
+                        <div class="service-content">
+                            <h3>Monthly (10 Days)</h3>
+                            <p class="display-6 fw-bold">R1200</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="contact">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-6">
+                    <h2 class="section-title">Book a Session</h2>
+                    <form id="contactForm">
+                        <!-- Name Input -->
+                        <div class="mb-3">
+                            <input type="text" class="form-control" id="userName" placeholder="Your Name" required>
+                        </div>
+                        <!-- Email Input -->
+                        <div class="mb-3">
+                            <input type="email" class="form-control" id="userEmail" placeholder="Your Email" required>
+                        </div>
+                        <!-- Phone Input -->
+                        <div class="mb-3">
+                            <input type="text" class="form-control" id="userPhone" placeholder="Your Phone Number" required>
+                        </div>
+                        <!-- Subject Select -->
+                        <div class="mb-3">
+                            <select class="form-select" id="userSubject" required>
+                                <option value="">Subjects</option>
+                                <option>Physical Science</option>
+                                <option>Life Science</option>
+                                <option>Mathematics</option>
+                                <option>Chemistry</option>
+                                <option>Geography</option>
+                                <option>Accounting</option>
+                                <option>Economics</option>
+                            </select>
+                        </div>
+                        <!-- Grade Select -->
+                        <div class="mb-3">
+                            <select class="form-select" id="userGrade" required>
+                                <option value="">Select Grade</option>
+                                <option>Grade 8</option>
+                                <option>Grade 9</option>
+                                <option>Grade 10</option>
+                                <option>Grade 11</option>
+                                <option>Grade 12</option>
+                                <option>University</option>
+                            </select>
+                        </div>
+                        <!-- Session Type Select -->
+                        <div class="mb-3">
+                            <select class="form-select" id="userSessionType" required>
+                                <option value="">Choose Session Type</option>
+                                <option>Private</option>
+                                <option>Class</option>
+                                <option>Online</option>
+                                <option>Custom (Message)</option>
+                            </select>
+                        </div>
+                        <!-- Message Textarea -->
+                        <div class="mb-3">
+                            <textarea class="form-control" id="userMessage" rows="5" placeholder="Your Message"></textarea>
+                        </div>
+                        <!-- Submit Button -->
+                        <button type="submit" class="btn cta-button w-100">Send Request</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- JavaScript Dependencies -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
+    
+    <!-- Custom JavaScript for Form Submission -->
+    <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+    <script>
+        // Initialize EmailJS
+        emailjs.init("p9bOTtLeCjBryUxqP"); // Replace with your EmailJS public key
+    
+        // Form Submission
+        document.getElementById("contactForm").addEventListener("submit", function (event) {
+            event.preventDefault();
+    
+            // Send form data via EmailJS
+            emailjs.send("service_zxh9hno", "template_ietzcra", {
+                user_name: document.getElementById("userName").value,
+                user_email: document.getElementById("userEmail").value,
+                user_phone: document.getElementById("userPhone").value,
+                user_subject: document.getElementById("userSubject").value,
+                user_grade: document.getElementById("userGrade").value,
+                user_session_type: document.getElementById("userSessionType").value,
+                user_message: document.getElementById("userMessage").value,
+            })
+            .then(
+                function (response) {
+                    alert("Your message has been sent successfully!");
+                    document.getElementById("contactForm").reset(); // Clear the form
+                },
+                function (error) {
+                    alert("Failed to send the message. Please try again later.");
+                    console.error("Error:", error);
+                }
+            );
+        });
+    </script>
+    
+    <!-- Custom JavaScript for Navbar Scroll Effect -->
+    <script>
+        // Add background color to navbar on scroll
+        window.addEventListener('scroll', function() {
+            if (window.scrollY > 50) {
+                document.querySelector('.navbar').classList.add('scrolled');
+            } else {
+                document.querySelector('.navbar').classList.remove('scrolled');
+            }
+        });
+    </script>
+    
+
+   
+</html>
